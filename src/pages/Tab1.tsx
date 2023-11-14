@@ -1,18 +1,22 @@
 import {IonButton, IonContent, IonPage} from '@ionic/react';
+import { Camera, CameraResultType } from '@capacitor/camera';
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
+    const takePicture = async () => {
+        const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: true,
+            resultType: CameraResultType.Uri
+        });
 
-    const fetchData = async () => {
-        const result = await fetch("https://catfact.ninja/fact");
-
-        console.log(result.json());
+        console.log(image.webPath);
     }
 
   return (
     <IonPage>
         <IonContent>
-            <IonButton onClick={() => fetchData()}>Default</IonButton>
+            <IonButton onClick={() => takePicture()}>Default</IonButton>
         </IonContent>
     </IonPage>
   );
